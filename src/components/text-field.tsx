@@ -1,28 +1,31 @@
-import {InputHTMLAttributes} from "react";
+import { FieldProps } from '../types';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    validate?: ((v: string) => void)[]
-}
+// NOTE: 아래 주석(/* eslint-disable @typescript-eslint/no-unused-vars */)을 제거하고 작업 해주세요.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-// NOTE: 아래 주석 /* eslint-disable @typescript-eslint/no-unused-vars */ 를 제거하고 작업 해주세요.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const TextField = ({validate, ...rest}: Props) => {
-    const error: {
-        success: boolean,
-        message?: string,
-    } = {
-        success: false,
-        message: '값을 입력해주세요.',
-    };
-
+/*
+ * TextField 컴포넌트는 input 요소를 렌더링하고, 에러 메시지를 표시합니다.
+ **/
+const TextField = ({
+    validate,
+    error = {
+        success: true,
+    },
+    value,
+    setValue,
+    setError,
+    ...rest
+}: FieldProps) => {
     return (
         <div className={'text-field'}>
-            <input {...rest}/>
+            <input value={value} onChange={() => {}} {...rest} />
             <div className={'error-message'}>
-                {!error.success && <p id={`${rest.name}-error`}>{error.message}</p>}
+                {!error.success && (
+                    <p id={`${rest.name}-error`}>{error.message}</p>
+                )}
             </div>
         </div>
     );
-}
+};
 
 export default TextField;
