@@ -30,7 +30,7 @@ function App() {
                     name={'id'}
                     type="text"
                     placeholder="아이디"
-                    validate={[]}
+                    // validate={[min(5), max(15)]}
                 />
                 <TextField
                     name={'password'}
