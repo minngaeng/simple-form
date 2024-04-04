@@ -16,9 +16,24 @@ const TextField = ({
     setError,
     ...rest
 }: FieldProps) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const v = e.target.value;
+        setValue?.(v);
+        if (validate) {
+            for (const validator of validate) {
+                const result = validator(v);
+                if (!result.success) {
+                    setError?.(result);
+                    return;
+                }
+            }
+        }
+        setError?.({ success: true });
+    };
+
     return (
         <div className={'text-field'}>
-            <input value={value} onChange={() => {}} {...rest} />
+            <input value={value} onChange={handleChange} {...rest} />
             <div className={'error-message'}>
                 {!error.success && (
                     <p id={`${rest.name}-error`}>{error.message}</p>

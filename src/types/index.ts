@@ -10,7 +10,7 @@ export type FormData = Record<string, string>;
 
 export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
-    validate?: ((v: string) => void)[];
+    validate?: ((v: string) => FieldError)[];
     value?: string;
     error?: FieldError;
     setValue?: (v: string) => void;
