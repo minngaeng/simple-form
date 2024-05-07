@@ -1,8 +1,5 @@
 import { FieldProps } from '../types';
 
-// NOTE: 아래 주석(/* eslint-disable @typescript-eslint/no-unused-vars */)을 제거하고 작업 해주세요.
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 /*
  * TextField 컴포넌트는 input 요소를 렌더링하고, 에러 메시지를 표시합니다.
  **/
@@ -19,16 +16,10 @@ const TextField = ({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const v = e.target.value;
         setValue?.(v);
-        if (validate) {
-            for (const validator of validate) {
-                const result = validator(v);
-                if (!result.success) {
-                    setError?.(result);
-                    return;
-                }
-            }
-        }
-        setError?.({ success: true });
+        // TODO: validation
+        // 1. validate 함수가 주어진 경우, validate 함수를 실행하여 에러 메시지를 설정합니다.
+        // 2. error가 있는 경우 setError 함수를 호출하여 에러 메시지를 설정합니다.
+        // 3. error가 없는 경우, success를 true로 설정합니다.
     };
 
     return (
