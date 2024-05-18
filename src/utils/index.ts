@@ -38,7 +38,7 @@ export const max = (maxLength: number) => {
         } else {
             return {
                 success: false,
-                message: `최대 ${maxLength}자 이하로 입력해주세요`,
+                message: `최대 ${maxLength}자 이하로 입력해주세요.`,
             };
         }
     };
