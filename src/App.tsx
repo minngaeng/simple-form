@@ -42,6 +42,25 @@ function App() {
                     placeholder="비밀번호"
                     validate={[required]}
                 />
+                <TextField
+                    name={'password-confirm'}
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    validate={[required]}
+                />
+                <TextField
+                    name={'name'}
+                    type="text"
+                    placeholder="이름"
+                    validate={[required]}
+                />
+                <TextField
+                    name={'email'}
+                    type="text"
+                    placeholder="이메일"
+                    validate={[required]}
+                />
+
                 {/* TODO: create TextField for name, email and password confirm*/}
             </Form>
             <button
