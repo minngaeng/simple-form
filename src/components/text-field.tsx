@@ -27,7 +27,6 @@ const TextField = ({
 
         if (validate) {
             let validateErr = { success: true, message: '' };
-            console.log('유효성 검사 시작'); // 검사 시작을 알리는 로그
 
             for (const validator of validate) {
                 const result = validator(v);
