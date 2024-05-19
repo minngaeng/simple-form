@@ -24,17 +24,29 @@ const TextField = ({
         /**
          * 민경 : 아래 코드보다 더 좋은 코드가 있을지 고민하고 있습니다.
          */
+
         if (validate) {
             let validateErr = { success: true, message: '' };
+            console.log('유효성 검사 시작'); // 검사 시작을 알리는 로그
+
             for (const validator of validate) {
                 const result = validator(v);
+
                 if (!result.success) {
-                    validateErr = { ...result, message: result.message || '' };
+                    validateErr = {
+                        ...result,
+                        success: false,
+                        message: result.message || '',
+                    };
+
                     break;
                 }
             }
+
             if (setError) {
                 setError(validateErr);
+            } else {
+                validateErr.success = true;
             }
         }
     };
