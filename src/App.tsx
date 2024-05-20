@@ -2,7 +2,7 @@ import './App.css';
 import TextField from './components/text-field.tsx';
 import Form from './components/form.tsx';
 
-// import { max, min } from './utils';
+import { max, min, required } from './utils';
 
 function App() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,14 +33,34 @@ function App() {
                     name={'id'}
                     type="text"
                     placeholder="아이디"
-                    // validate={[min(5), max(15)]} {/*TODO: use min, max validators*/}
+                    validate={[min(5), max(15)]}
+                    /*TODO: use min, max validators*/
                 />
                 <TextField
                     name={'password'}
                     type="password"
                     placeholder="비밀번호"
-                    // validate={[required]}
+                    validate={[required]}
                 />
+                <TextField
+                    name={'password-confirm'}
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    validate={[required]}
+                />
+                <TextField
+                    name={'name'}
+                    type="text"
+                    placeholder="이름"
+                    validate={[required]}
+                />
+                <TextField
+                    name={'email'}
+                    type="text"
+                    placeholder="이메일"
+                    validate={[required]}
+                />
+
                 {/* TODO: create TextField for name, email and password confirm*/}
             </Form>
             <button
