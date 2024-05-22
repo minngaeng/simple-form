@@ -62,3 +62,18 @@ export const max = (maxLength: number) => {
     }
 };
 */
+
+export const email = (v: string) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(v)) {
+        return {
+            success: false,
+            message: '이메일 형식에 맞게 입력해주세요.',
+        };
+    }
+
+    return {
+        success: true,
+    };
+};
