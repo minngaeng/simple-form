@@ -43,7 +43,7 @@ test('email field validation - missing @', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('email field validation - invalid domain name', () => {
+test('email field validation - invalid domain name', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
