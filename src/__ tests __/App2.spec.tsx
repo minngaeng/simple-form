@@ -3,7 +3,7 @@ import App from '../App.tsx';
 import '@testing-library/jest-dom';
 
 // TODO: 아래 테스트를 통과하도록 name field validation을 구현하세요.
-test.skip('name field validation - required', () => {
+test('name field validation - required', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const nameInput = getByPlaceholderText('이름');
 

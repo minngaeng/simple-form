@@ -6,7 +6,9 @@ export const required = (v: string): FieldError => {
     if (!v) {
         return {
             success: false,
-            message: '필수 입력 항목입니다.',
+            message:
+                // '필수 입력 항목입니다.',
+                '값을 입력해주세요.',
         };
     }
     return {
