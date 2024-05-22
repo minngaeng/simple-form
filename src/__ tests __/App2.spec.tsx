@@ -33,7 +33,7 @@ test('email field validation - invalid local part', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('email field validation - missing @', () => {
+test('email field validation - missing @', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
