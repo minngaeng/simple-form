@@ -54,3 +54,28 @@ test('email field validation - invalid domain name', () => {
 });
 
 // TODO: 위 email validation 테스트에서 빠진 엣지 케이스가 있는지 생각해보고 가능하면 추가해보세요.
+
+test('password field validation - required', () => {
+    const { getByPlaceholderText, getByText } = render(<App />);
+    const passwordInput = getByPlaceholderText('비밀번호');
+
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    expect(
+        getByText('비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.')
+    ).toBeInTheDocument();
+
+    fireEvent.change(passwordInput, { target: { value: 'abcdefg' } });
+    expect(
+        getByText('비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.')
+    ).toBeInTheDocument();
+
+    fireEvent.change(passwordInput, { target: { value: 'abc123' } });
+    expect(
+        getByText('비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.')
+    ).toBeInTheDocument();
+
+    const errorMessage = getByText(
+        '비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.'
+    );
+    expect(errorMessage).toBeInTheDocument();
+});

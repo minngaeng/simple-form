@@ -2,7 +2,13 @@ import './App.css';
 import TextField from './components/text-field.tsx';
 import Form from './components/form.tsx';
 
-import { emailValidation, max, min, required } from './utils';
+import {
+    emailValidation,
+    max,
+    min,
+    passwordValidation,
+    required,
+} from './utils';
 
 function App() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,7 +46,7 @@ function App() {
                     name={'password'}
                     type="password"
                     placeholder="비밀번호"
-                    validate={[required]}
+                    validate={[required, passwordValidation]}
                 />
                 <TextField
                     name={'password-confirm'}

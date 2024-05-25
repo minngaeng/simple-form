@@ -62,12 +62,12 @@ export const emailValidation = (v: string) => {
 };
 
 export const passwordValidation = (v: string) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
 
     if (!passwordRegex.test(v)) {
         return {
             success: false,
-            message: '영문, 숫자를 포함하여 8자 이상 입력해주세요.',
+            message: '비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.',
         };
     }
 
