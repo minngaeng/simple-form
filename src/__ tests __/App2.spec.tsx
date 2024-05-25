@@ -3,7 +3,7 @@ import App from '../App.tsx';
 import '@testing-library/jest-dom';
 
 // TODO: 아래 테스트를 통과하도록 name field validation을 구현하세요.
-test.skip('name field validation - required', () => {
+test('name field validation - required', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const nameInput = getByPlaceholderText('이름');
 
@@ -23,7 +23,7 @@ test.skip('name field validation - required', () => {
 // 도메인명 (Domain Name): @ 기호 뒤에 위치하며, 이메일 서비스를 제공하는 서버를 나타냅니다. 예를 들어, "example"가 도메인명입니다.
 // 최상위도메인 (Top-Level Domain, TLD): 도메인명 뒤에 마침표(.)로 구분되어 나타나며, 도메인의 목적과 종류를 나타냅니다. 국가코드최상위도메인(ccTLD)과 일반최상위도메인(gTLD)이 있습니다. 예를 들어, "com"은 상업용 gTLD입니다.
 
-test.skip('email field validation - invalid local part', () => {
+test('email field validation - invalid local part', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
@@ -33,7 +33,7 @@ test.skip('email field validation - invalid local part', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('email field validation - missing @', () => {
+test('email field validation - missing @', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
@@ -43,7 +43,7 @@ test.skip('email field validation - missing @', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('email field validation - invalid domain name', () => {
+test('email field validation - invalid domain name', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
@@ -54,3 +54,28 @@ test.skip('email field validation - invalid domain name', () => {
 });
 
 // TODO: 위 email validation 테스트에서 빠진 엣지 케이스가 있는지 생각해보고 가능하면 추가해보세요.
+
+test('password field validation - required', () => {
+    const { getByPlaceholderText, getByText } = render(<App />);
+    const passwordInput = getByPlaceholderText('비밀번호');
+
+    fireEvent.change(passwordInput, { target: { value: '1234567' } });
+    expect(
+        getByText('비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.')
+    ).toBeInTheDocument();
+
+    fireEvent.change(passwordInput, { target: { value: 'abcdefg' } });
+    expect(
+        getByText('비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.')
+    ).toBeInTheDocument();
+
+    fireEvent.change(passwordInput, { target: { value: 'abc123' } });
+    expect(
+        getByText('비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.')
+    ).toBeInTheDocument();
+
+    const errorMessage = getByText(
+        '비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.'
+    );
+    expect(errorMessage).toBeInTheDocument();
+});

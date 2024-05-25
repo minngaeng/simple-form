@@ -6,7 +6,9 @@ export const required = (v: string): FieldError => {
     if (!v) {
         return {
             success: false,
-            message: '필수 입력 항목입니다.',
+            message:
+                // '필수 입력 항목입니다.',
+                '값을 입력해주세요.',
         };
     }
     return {
@@ -44,19 +46,32 @@ export const max = (maxLength: number) => {
     };
 };
 
-/**
- * 고차함수 숙지 후 추후 삭제 예정
- * */
-/*const checkMin = (value: string) => {
-    if (value.length > 5) {
-        return {
-            success: true,
-        };
-    } else {
+export const emailValidation = (v: string) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(v)) {
         return {
             success: false,
-            message: '최소 5자 이상 입력해주세요.',
+            message: '이메일 형식에 맞게 입력해주세요.',
         };
     }
+
+    return {
+        success: true,
+    };
 };
-*/
+
+export const passwordValidation = (v: string) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+
+    if (!passwordRegex.test(v)) {
+        return {
+            success: false,
+            message: '비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.',
+        };
+    }
+
+    return {
+        success: true,
+    };
+};
