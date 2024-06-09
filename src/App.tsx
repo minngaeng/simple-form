@@ -1,27 +1,36 @@
 import './App.css';
-import TextField from './components/text-field.tsx';
-import Form from './components/form.tsx';
+// import TextField from './components/text-field.tsx';
+// import Form from './components/form.tsx';
 
 import {
     emailValidation,
-    max,
-    min,
+    // max,
+    // min,
     passwordValidation,
-    required,
 } from './utils';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormSubmit } from './types/index.ts';
 
 function App() {
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const {
+        handleSubmit,
+        register,
+        watch,
+        formState: { errors },
+    } = useForm<FormSubmit>();
+    console.log('errors', errors);
+    // const initialData = {
+    //     id: '',
+    //     password: '',
+    //     'password-confirm': '',
+    //     name: '',
+    //     email: '',
+    // };
+
+    const onSubmit: SubmitHandler<FormSubmit> = (data) => {
+        console.log(data);
     };
 
-    const initialData = {
-        id: '',
-        password: '',
-        'password-confirm': '',
-        name: '',
-        email: '',
-    };
     return (
         <div
             style={{
@@ -34,50 +43,80 @@ function App() {
             <h1>회원가입</h1>
             <p>회원가입을 위해 아래 정보를 입력해주세요.</p>
 
-            <Form id={'join'} onSubmit={handleSubmit} initialData={initialData}>
-                <TextField
-                    name={'id'}
+            <form id="join" onSubmit={handleSubmit(onSubmit)}>
+                <input
                     type="text"
                     placeholder="아이디"
-                    validate={[min(5), max(15)]}
-                    /*TODO: use min, max validators*/
+                    {...register('id', {
+                        required: '필수 항목입니다.',
+                        minLength: {
+                            value: 5,
+                            message: '최소 5자 이상 입력해주세요.',
+                        },
+                        maxLength: {
+                            value: 15,
+                            message: '최대 15자 이하로 입력해주세요.',
+                        },
+                    })}
                 />
-                <TextField
-                    name={'password'}
+                {errors.id && typeof errors.id.message === 'string' && (
+                    <div className="error-message">{errors.id?.message}</div>
+                )}
+                <input
                     type="password"
                     placeholder="비밀번호"
-                    validate={[required, passwordValidation]}
+                    {...register('password', {
+                        required: '필수 항목입니다.',
+                        validate: (v) =>
+                            passwordValidation(v).success ||
+                            passwordValidation(v).message,
+                    })}
                 />
-                <TextField
-                    name={'password-confirm'}
+                {errors.password &&
+                    typeof errors.password.message === 'string' && (
+                        <div className="error-message">
+                            {errors.password?.message}
+                        </div>
+                    )}
+                <input
                     type="password"
                     placeholder="비밀번호 확인"
-                    validate={[required]}
+                    {...register('password-confirm', {
+                        required: '필수 항목입니다.',
+                        validate: (v) =>
+                            v === watch('password') ||
+                            '비밀번호가 일치하지 않습니다.',
+                    })}
                 />
-                <TextField
-                    name={'name'}
-                    type="text"
-                    placeholder="이름"
-                    validate={[required]}
-                />
-                <TextField
-                    name={'email'}
+                {errors['password-confirm'] && (
+                    <div className="error-message">
+                        {typeof errors['password-confirm'].message ===
+                            'string' && errors['password-confirm']?.message}
+                    </div>
+                )}
+                <input
                     type="text"
                     placeholder="이메일"
-                    validate={[required, emailValidation]}
+                    {...register('email', {
+                        required: '필수 항목입니다.',
+                        validate: (v) =>
+                            emailValidation(v).success ||
+                            emailValidation(v).message,
+                    })}
                 />
-
-                {/* TODO: create TextField for name, email and password confirm*/}
-            </Form>
-            <button
-                type={'submit'}
-                form={'join'}
-                style={{
-                    width: '300px',
-                }}
-            >
-                제출하기
-            </button>
+                {typeof errors.email?.message === 'string' && (
+                    <div className="error-message">{errors.email?.message}</div>
+                )}
+                <button
+                    type={'submit'}
+                    form={'join'}
+                    style={{
+                        width: '300px',
+                    }}
+                >
+                    제출하기
+                </button>
+            </form>
         </div>
     );
 }

@@ -16,3 +16,11 @@ export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
     setValue?: (v: string) => void;
     setError?: (v: FieldError) => void;
 }
+
+export interface FormSubmit {
+    id: string;
+    password: string;
+    'password-confirm': string;
+    name: string;
+    email: string;
+}
