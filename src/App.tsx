@@ -14,7 +14,6 @@ const App = () => {
         email: '',
     };
 
-    // Yup validation schema
     const validationSchema = Yup.object({
         id: Yup.string()
             .min(5, '최소 5자 이상 입력해주세요.')
@@ -38,8 +37,12 @@ const App = () => {
             .required('비밀번호 확인은 필수 입력 항목입니다.'),
         name: Yup.string().required('이름은 필수 입력 항목입니다.'),
         email: Yup.string()
-            .email('이메일 형식에 맞게 입력해주세요.')
-            .required('이메일은 필수 입력 항목입니다.'),
+            .required('이메일은 필수 입력 항목입니다.')
+            .test(
+                'isValidEmail',
+                '이메일 형식에 맞게 입력해주세요.',
+                (v: string) => emailValidation(v).success
+            ),
     });
 
     return (
