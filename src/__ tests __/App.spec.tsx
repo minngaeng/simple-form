@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import App from '../App.tsx';
 import '@testing-library/jest-dom';
 
@@ -7,14 +7,17 @@ import '@testing-library/jest-dom';
 // 한번에 하나씩 순서대로 진행하세요.
 //  test.skip -> test
 
-test('id field validation - min', () => {
+test('id field validation - min', async () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const idInput = getByPlaceholderText('아이디');
 
     fireEvent.change(idInput, { target: { value: '1234' } });
 
-    const errorMessage = getByText('최소 5자 이상 입력해주세요.');
-    expect(errorMessage).toBeInTheDocument();
+    // 에러메세지를 확인하는 부분을 waitFor 함수로 감싸줍니다.
+    await waitFor(() => {
+        const errorMessage = getByText('최소 5자 이상 입력해주세요.');
+        expect(errorMessage).toBeInTheDocument();
+    });
 });
 
 test('id field validation - max', () => {
