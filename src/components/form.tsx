@@ -2,9 +2,10 @@ import React, { FormHTMLAttributes, ReactElement, useState } from 'react';
 import { FieldProps, FieldError, FormError, FormData } from '../types';
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
-    children: ReactElement<FieldProps>[];
+    children: (props: any) => void;
     initialData: FormData;
 }
+// TODO: 1. type 에러 해결
 
 const getInitialError = (data?: FormData) => {
     const error: FormError = {};
@@ -24,7 +25,11 @@ const Form = (props: FormProps) => {
 
     return (
         <form id={props.id} onSubmit={props.onSubmit}>
-            {React.Children.map(
+            {props.children({
+                values,
+                errors,
+            })}
+            {/* {React.Children.map(
                 props.children,
                 (child: React.ReactElement<FieldProps>) =>
                     React.cloneElement(child, {
@@ -43,7 +48,7 @@ const Form = (props: FormProps) => {
                             });
                         },
                     })
-            )}
+            )} */}
         </form>
     );
 };

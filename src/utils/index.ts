@@ -75,3 +75,16 @@ export const passwordValidation = (v: string) => {
         success: true,
     };
 };
+
+export const match = (password: string) => (passwordConfirm: string) => {
+    if (password === passwordConfirm) {
+        return {
+            success: true,
+        };
+    } else {
+        return {
+            success: false,
+            message: '비밀번호가 일치하지 않습니다.',
+        };
+    }
+};
