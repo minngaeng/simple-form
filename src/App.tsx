@@ -1,20 +1,11 @@
+import React from 'react';
 import './App.css';
 import TextField from './components/text-field.tsx';
-import Form from './components/form.tsx';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import { emailValidation, passwordValidation } from './utils';
 
-import {
-    emailValidation,
-    max,
-    min,
-    passwordValidation,
-    required,
-} from './utils';
-
-function App() {
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    };
-
+const App = () => {
     const initialData = {
         id: '',
         password: '',
@@ -22,6 +13,38 @@ function App() {
         name: '',
         email: '',
     };
+
+    const validationSchema = Yup.object({
+        id: Yup.string()
+            .min(5, '최소 5자 이상 입력해주세요.')
+            .max(15, '최대 15자 이하로 입력해주세요.')
+            .required('아이디는 필수 입력 항목입니다.'),
+        password: Yup.string()
+            .required('비밀번호는 필수 입력 항목입니다.')
+            .test(
+                'isValidPassword',
+                '비밀번호는 영문 숫자를 혼합한 8자리 이상이어야 합니다.',
+                (v: string) => passwordValidation(v).success
+            ),
+        'password-confirm': Yup.string()
+            .oneOf(
+                [
+                    Yup.ref('password'),
+                    // , null
+                ],
+                '비밀번호가 일치하지 않습니다.'
+            )
+            .required('비밀번호 확인은 필수 입력 항목입니다.'),
+        name: Yup.string().required('이름은 필수 입력 항목입니다.'),
+        email: Yup.string()
+            .required('이메일은 필수 입력 항목입니다.')
+            .test(
+                'isValidEmail',
+                '이메일 형식에 맞게 입력해주세요.',
+                (v: string) => emailValidation(v).success
+            ),
+    });
+
     return (
         <div
             style={{
@@ -34,52 +57,46 @@ function App() {
             <h1>회원가입</h1>
             <p>회원가입을 위해 아래 정보를 입력해주세요.</p>
 
-            <Form id={'join'} onSubmit={handleSubmit} initialData={initialData}>
-                <TextField
-                    name={'id'}
-                    type="text"
-                    placeholder="아이디"
-                    validate={[min(5), max(15)]}
-                    /*TODO: use min, max validators*/
-                />
-                <TextField
-                    name={'password'}
-                    type="password"
-                    placeholder="비밀번호"
-                    validate={[required, passwordValidation]}
-                />
-                <TextField
-                    name={'password-confirm'}
-                    type="password"
-                    placeholder="비밀번호 확인"
-                    validate={[required]}
-                />
-                <TextField
-                    name={'name'}
-                    type="text"
-                    placeholder="이름"
-                    validate={[required]}
-                />
-                <TextField
-                    name={'email'}
-                    type="text"
-                    placeholder="이메일"
-                    validate={[required, emailValidation]}
-                />
-
-                {/* TODO: create TextField for name, email and password confirm*/}
-            </Form>
-            <button
-                type={'submit'}
-                form={'join'}
-                style={{
-                    width: '300px',
+            <Formik
+                initialValues={initialData}
+                validationSchema={validationSchema}
+                onSubmit={(values, { setSubmitting }) => {
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
                 }}
             >
-                제출하기
-            </button>
+                {({ isSubmitting }) => (
+                    <Form id="join">
+                        <TextField name="id" type="text" placeholder="아이디" />
+                        <TextField
+                            name="password"
+                            type="password"
+                            placeholder="비밀번호"
+                        />
+                        <TextField
+                            name="password-confirm"
+                            type="password"
+                            placeholder="비밀번호 확인"
+                        />
+                        <TextField name="name" type="text" placeholder="이름" />
+                        <TextField
+                            name="email"
+                            type="text"
+                            placeholder="이메일"
+                        />
+
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            style={{ width: '300px' }}
+                        >
+                            제출하기
+                        </button>
+                    </Form>
+                )}
+            </Formik>
         </div>
     );
-}
+};
 
 export default App;
