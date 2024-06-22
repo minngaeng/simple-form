@@ -4,11 +4,11 @@ import Form from './components/form.tsx';
 
 import {
     // emailValidation,
-    // max,
-    // min,
-    passwordValidation,
-    required,
-    match,
+    max,
+    min,
+    // passwordValidation,
+    // required,
+    // match,
 } from './utils';
 
 function App() {
@@ -35,10 +35,30 @@ function App() {
             <h1>회원가입</h1>
             <p>회원가입을 위해 아래 정보를 입력해주세요.</p>
             <Form id={'join'} onSubmit={handleSubmit} initialData={initialData}>
-                {/* TODO: 2. props를 활용하여 테스트 통과하게 만들기 */}
-                {(props) => {
-                    <>
-                        <TextField
+                {/* NOTE: props를 활용하여 테스트 통과하게 만들기 */}
+                {/* 처리해야 하는 요소: password, id, name, email */}
+                {/* 1. password 빼고 나머지(id(진행중✅), name, email 순서로 1단계를 반복) */}
+                {/* 1-1: 테스트 중에 쉬워보이는 것들을 skip을 해체하고, 그걸 통과하게 만들기 */}
+                {/* 1-2: 나머지를 통과하게 만들 */}
+                {/* 2. password */}
+                {({ values, errors }) => {
+                    // 과제 step0: props로 setValues, setErrors 함수를 받아오기
+                    return (
+                        <>
+                            <TextField
+                                value={values.id}
+                                setValue={() => {}} // 과제 step1: props로 받아온 setValues 함수 활용
+                                // error={errors.id}
+                                setError={() => {}} // 과제 step2: props로 받아온 setErrors 함수 활용
+                                name={'id'}
+                                type="text"
+                                placeholder="아이디"
+                                validate={[min(5), max(15)]}
+                            />
+                        </>
+                    );
+                }}
+                {/* <TextField
                             type="password"
                             name={'password'}
                             placeholder="비밀번호"
@@ -49,15 +69,7 @@ function App() {
                             name={'password-confirm'}
                             placeholder="비밀번호 확인"
                             validate={[required, match('fake password')]}
-                        />
-                    </>;
-                }}
-                {/* <TextField
-                    name={'id'}
-                    type="text"
-                    placeholder="아이디"
-                    validate={[min(5), max(15)]}
-                /> */}
+                        /> */}
                 {/* <TextField
                     name={'name'}
                     type="text"
@@ -71,7 +83,6 @@ function App() {
                     validate={[required, emailValidation]}
                 />
  */}
-                {/* TODO: create TextField for name, email and password confirm*/}
             </Form>
             <button
                 type={'submit'}
