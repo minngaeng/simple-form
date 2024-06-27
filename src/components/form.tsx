@@ -1,14 +1,5 @@
-import React, { FormHTMLAttributes, useState } from 'react';
-import { FormError, FormData } from '../types';
-
-interface FormProps
-    extends Omit<FormHTMLAttributes<HTMLFormElement>, 'children'> {
-    children: (props: {
-        values: FormData;
-        errors: FormError;
-    }) => React.ReactNode;
-    initialData: FormData;
-}
+import { useState } from 'react';
+import { FormError, FormData, FormProps } from '../types';
 
 const getInitialError = (data?: FormData) => {
     const error: FormError = {};

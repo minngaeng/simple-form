@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { FormHTMLAttributes, InputHTMLAttributes } from 'react';
 
 export type FieldError = {
     success: boolean;
@@ -17,4 +17,13 @@ export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: FieldError;
     setError?: (v: FieldError) => void;
     // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface FormProps
+    extends Omit<FormHTMLAttributes<HTMLFormElement>, 'children'> {
+    children: (props: {
+        values: FormData;
+        errors: FormError;
+    }) => React.ReactNode;
+    initialData: FormData;
 }
