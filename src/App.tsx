@@ -10,6 +10,7 @@ import {
     // required,
     // match,
 } from './utils';
+import { FieldError } from './types/index.ts';
 
 function App() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,15 +42,30 @@ function App() {
                 {/* 1-1: 테스트 중에 쉬워보이는 것들을 skip을 해체하고, 그걸 통과하게 만들기 */}
                 {/* 1-2: 나머지를 통과하게 만들 */}
                 {/* 2. password */}
-                {({ values, errors }) => {
+                {({ values, errors, setValues, setErrors }) => {
                     // 과제 step0: props로 setValues, setErrors 함수를 받아오기
                     return (
                         <>
                             <TextField
                                 value={values.id}
-                                setValue={() => {}} // 과제 step1: props로 받아온 setValues 함수 활용
-                                // error={errors.id}
-                                setError={() => {}} // 과제 step2: props로 받아온 setErrors 함수 활용
+                                // setValue={(v) =>
+                                //     setValues((prev) => ({ ...prev, id: v }))
+                                // }
+                                setValue={(v) =>
+                                    setValues({ ...values, id: v })
+                                }
+                                // 과제 step1: props로 받아온 setValues 함수 활용
+                                error={errors.id}
+                                // 과제 step2: props로 받아온 setErrors 함수 활용
+                                // setError={(error: FieldError) => {
+                                //     setErrors((prev: FormError) => ({
+                                //         ...prev,
+                                //         id: error,
+                                //     }));
+                                // }}
+                                setError={(err: FieldError) => {
+                                    setErrors({ ...errors, id: err });
+                                }}
                                 name={'id'}
                                 type="text"
                                 placeholder="아이디"

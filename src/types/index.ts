@@ -15,6 +15,7 @@ export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
     setValue: (v: string) => void;
     // TOOD: error 처리
     error?: FieldError;
+    // setError?: (error: { success: boolean; message?: string }) => void;
     setError?: (v: FieldError) => void;
     // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -24,6 +25,8 @@ export interface FormProps
     children: (props: {
         values: FormData;
         errors: FormError;
+        setValues: (v: FormData) => void;
+        setErrors: (v: FormError) => void;
     }) => React.ReactNode;
     initialData: FormData;
 }

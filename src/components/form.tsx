@@ -17,12 +17,15 @@ const Form = ({ children, initialData, ...props }: FormProps) => {
     const [errors, setErrors] = useState<FormError>(
         getInitialError(initialData)
     );
-
+    console.log('value', values);
+    console.log('error', errors);
     return (
         <form {...props}>
             {children({
                 values,
                 errors,
+                setValues,
+                setErrors,
             })}
         </form>
     );
