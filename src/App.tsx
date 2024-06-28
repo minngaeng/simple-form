@@ -3,11 +3,11 @@ import TextField from './components/text-field.tsx';
 import Form from './components/form.tsx';
 
 import {
-    // emailValidation,
+    emailValidation,
     min,
     max,
     // passwordValidation,
-    // required,
+    required,
     // match,
 } from './utils';
 import { FieldError } from './types/index.ts';
@@ -57,28 +57,38 @@ function App() {
                                 placeholder="아이디"
                                 validate={[min(5), max(15)]}
                             />
+                            <TextField
+                                value={values.name}
+                                setValue={(v) => {
+                                    setValues({ ...values, name: v });
+                                }}
+                                error={errors.name}
+                                setError={(err: FieldError) => {
+                                    setErrors({ ...errors, name: err });
+                                }}
+                                name={'name'}
+                                type="text"
+                                placeholder="이름"
+                                validate={[required]}
+                            />
+                            <TextField
+                                value={values.email}
+                                setValue={(v) => {
+                                    setValues({ ...values, email: v });
+                                }}
+                                error={errors.email}
+                                setError={(err: FieldError) => {
+                                    setErrors({ ...errors, email: err });
+                                }}
+                                name={'email'}
+                                type="text"
+                                placeholder="이메일"
+                                validate={[required, emailValidation]}
+                            />
                         </>
                     );
                 }}
-                {/* <TextField
-                    name={'id'}
-                    type="text"
-                    placeholder="아이디"
-                    validate={[min(5), max(15)]}
-                /> */}
-                {/* <TextField
-                    name={'name'}
-                    type="text"
-                    placeholder="이름"
-                    validate={[required]}
-                />
-                <TextField
-                    name={'email'}
-                    type="text"
-                    placeholder="이메일"
-                    validate={[required, emailValidation]}
-                />
- */}
+
                 {/* TODO: create TextField for name, email and password confirm*/}
             </Form>
             <button
