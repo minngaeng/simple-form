@@ -37,15 +37,21 @@ function App() {
             <p>회원가입을 위해 아래 정보를 입력해주세요.</p>
             <Form id={'join'} onSubmit={handleSubmit} initialData={initialData}>
                 {/* TODO: 2. props를 활용하여 테스트 통과하게 만들기 */}
-                {({ values, errors }) => {
+                {({ values, errors, setValues, setErrors }) => {
                     // 과제 step0: props로 setValues, setErrors 함수를 받아오기
                     return (
                         <>
                             <TextField
                                 value={values.id}
-                                setValue={() => {}} // 과제 step1: props로 받아온 setValues 함수 활용
-                                // error={errors.id}
-                                setError={() => {}} // 과제 step2: props로 받아온 setErrors 함수 활용
+                                // 과제 step1: props로 받아온 setValues 함수 활용
+                                setValue={(v) => {
+                                    setValues({ ...values, id: v });
+                                }}
+                                error={errors.id}
+                                // 과제 step2: props로 받아온 setErrors 함수 활용
+                                setError={(err: FieldError) => {
+                                    setErrors({ ...errors, id: err });
+                                }}
                                 name={'id'}
                                 type="text"
                                 placeholder="아이디"
