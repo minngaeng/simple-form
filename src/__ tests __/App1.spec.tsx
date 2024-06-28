@@ -29,7 +29,7 @@ test('name field exists', () => {
     expect(nameInput).toBeInTheDocument();
 });
 
-test.skip('email field exists', () => {
+test('email field exists', () => {
     const { getByPlaceholderText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
