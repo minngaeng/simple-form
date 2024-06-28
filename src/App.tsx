@@ -7,7 +7,7 @@ import {
     max,
     min,
     // passwordValidation,
-    // required,
+    required,
     // match,
 } from './utils';
 import { FieldError } from './types/index.ts';
@@ -21,7 +21,7 @@ function App() {
         id: '',
         password: '',
         'password-confirm': '',
-        name: 'jueun',
+        name: '',
         email: '',
     };
     return (
@@ -71,6 +71,17 @@ function App() {
                                 placeholder="아이디"
                                 validate={[min(5), max(15)]}
                             />
+                            <TextField
+                                value={values.name}
+                                setValue={(v) =>
+                                    setValues({ ...values, name: v })
+                                }
+                                error={errors.name}
+                                name={'name'}
+                                type="text"
+                                placeholder="이름"
+                                validate={[required]}
+                            />
                         </>
                     );
                 }}
@@ -87,18 +98,11 @@ function App() {
                             validate={[required, match('fake password')]}
                         /> */}
                 {/* <TextField
-                    name={'name'}
-                    type="text"
-                    placeholder="이름"
-                    validate={[required]}
-                />
-                <TextField
                     name={'email'}
                     type="text"
                     placeholder="이메일"
                     validate={[required, emailValidation]}
-                />
- */}
+                /> */}
             </Form>
             <button
                 type={'submit'}

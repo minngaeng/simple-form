@@ -22,7 +22,7 @@ test('id field validation - max', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('name field exists', () => {
+test('name field exists', () => {
     const { getByPlaceholderText } = render(<App />);
     const nameInput = getByPlaceholderText('이름');
 
