@@ -77,7 +77,7 @@ test('password field validation - required', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('password field and password-confirm field validation - match', () => {
+test('password field and password-confirm field validation - match', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
 
     const passwordInput = getByPlaceholderText('비밀번호');
