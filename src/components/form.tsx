@@ -27,6 +27,26 @@ const Form = ({ children, initialData, ...props }: FormProps) => {
                 setValues,
                 setErrors,
             })}
+            {/* {React.Children.map(
+                props.children,
+                (child: React.ReactElement<FieldProps>) =>
+                    React.cloneElement(child, {
+                        value: values?.[child.props.name],
+                        setValue: (v: string) => {
+                            setValues({
+                                ...values,
+                                [child.props.name]: v,
+                            });
+                        },
+                        error: errors?.[child.props.name],
+                        setError: (v: FieldError) => {
+                            setErrors({
+                                ...errors,
+                                [child.props.name]: v,
+                            });
+                        },
+                    })
+            )} */}
         </form>
     );
 };

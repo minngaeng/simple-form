@@ -13,6 +13,7 @@ test('name field validation - required', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
+// TODO: email field validation 테스트를 만족하도록 구현하세요.
 // 이메일 주소는 일반적으로 다음과 같은 형식을 따릅니다:
 //     - [로컬파트]@[도메인명].[최상위도메인]
 //     - ex) test@example.com

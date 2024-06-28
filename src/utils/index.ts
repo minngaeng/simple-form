@@ -1,5 +1,7 @@
 import { FieldError } from '../types';
 
+// TODO: create min, max validators
+
 export const required = (v: string): FieldError => {
     if (!v) {
         return {

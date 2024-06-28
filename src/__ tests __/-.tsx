@@ -2,6 +2,11 @@ import { fireEvent, render } from '@testing-library/react';
 import App from '../App.tsx';
 import '@testing-library/jest-dom';
 
+// TODO: 모든 테스트 통과하게 만들기
+// skip을 제거하고 테스트를 실행해보세요.
+// 한번에 하나씩 순서대로 진행하세요.
+//  test.skip -> test
+
 test('id field validation - min', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const idInput = getByPlaceholderText('아이디');

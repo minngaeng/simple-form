@@ -11,13 +11,10 @@ export type FormData = Record<string, string>;
 export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     validate?: ((v: string) => FieldError)[];
-    value: string;
-    setValue: (v: string) => void;
-    // TOOD: error 처리
+    value?: string;
     error?: FieldError;
-    // setError?: (error: { success: boolean; message?: string }) => void;
+    setValue?: (v: string) => void;
     setError?: (v: FieldError) => void;
-    // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface FormProps
