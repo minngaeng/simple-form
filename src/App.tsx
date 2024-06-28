@@ -8,7 +8,7 @@ import {
     max,
     passwordValidation,
     required,
-    // match,
+    match,
 } from './utils';
 import { FieldError } from './types/index.ts';
 
@@ -98,6 +98,26 @@ function App() {
                                 type="password"
                                 placeholder="비밀번호"
                                 validate={[required, passwordValidation]}
+                            />
+                            <TextField
+                                value={values['password-confirm']}
+                                setValue={(v) => {
+                                    setValues({
+                                        ...values,
+                                        'password-confirm': v,
+                                    });
+                                }}
+                                error={errors['password-confirm']}
+                                setError={(err: FieldError) => {
+                                    setErrors({
+                                        ...errors,
+                                        'password-confirm': err,
+                                    });
+                                }}
+                                name={'password-confirm'}
+                                type="password"
+                                placeholder="비밀번호 확인"
+                                validate={[required, match(values.password)]}
                             />
                         </>
                     );
