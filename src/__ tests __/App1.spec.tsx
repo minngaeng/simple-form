@@ -36,7 +36,7 @@ test('email field exists', () => {
     expect(emailInput).toBeInTheDocument();
 });
 
-test.skip('password-confirm field exists', () => {
+test('password-confirm field exists', () => {
     const { getByPlaceholderText } = render(<App />);
     const passwordConfirmInput = getByPlaceholderText('비밀번호 확인');
 
