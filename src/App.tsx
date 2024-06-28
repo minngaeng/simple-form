@@ -6,9 +6,9 @@ import {
     emailValidation,
     max,
     min,
-    // passwordValidation,
+    passwordValidation,
     required,
-    // match,
+    match,
 } from './utils';
 import { FieldError } from './types/index.ts';
 
@@ -99,21 +99,43 @@ function App() {
                                 placeholder="이메일"
                                 validate={[required, emailValidation]}
                             />
+                            <TextField
+                                value={values.password}
+                                setValue={(v) => {
+                                    setValues({ ...values, password: v });
+                                }}
+                                error={errors.password}
+                                setError={(err: FieldError) => {
+                                    setErrors({ ...errors, password: err });
+                                }}
+                                type="password"
+                                name={'password'}
+                                placeholder="비밀번호"
+                                validate={[required, passwordValidation]}
+                            />
+                            <TextField
+                                value={values['password-confirm']}
+                                setValue={(v) => {
+                                    setValues({
+                                        ...values,
+                                        'password-confirm': v,
+                                    });
+                                }}
+                                error={errors['password-confirm']}
+                                setError={(err: FieldError) => {
+                                    setErrors({
+                                        ...errors,
+                                        'password-confirm': err,
+                                    });
+                                }}
+                                type="password"
+                                name={'password-confirm'}
+                                placeholder="비밀번호 확인"
+                                validate={[required, match(values.password)]}
+                            />
                         </>
                     );
                 }}
-                {/* <TextField
-                            type="password"
-                            name={'password'}
-                            placeholder="비밀번호"
-                            validate={[required, passwordValidation]}
-                        />
-                        <TextField
-                            type="password"
-                            name={'password-confirm'}
-                            placeholder="비밀번호 확인"
-                            validate={[required, match('fake password')]}
-                        /> */}
             </Form>
             <button
                 type={'submit'}
