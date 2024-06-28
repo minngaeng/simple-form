@@ -27,14 +27,14 @@ test('id field validation - max', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('name field exists', () => {
+test('name field exists', () => {
     const { getByPlaceholderText } = render(<App />);
     const nameInput = getByPlaceholderText('이름');
 
     expect(nameInput).toBeInTheDocument();
 });
 
-test.skip('email field exists', () => {
+test('email field exists', () => {
     const { getByPlaceholderText } = render(<App />);
     const emailInput = getByPlaceholderText('이메일');
 
