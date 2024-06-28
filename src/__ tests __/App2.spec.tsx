@@ -52,7 +52,7 @@ test('email field validation - invalid domain name', () => {
     expect(errorMessage).toBeInTheDocument();
 });
 
-test.skip('password field validation - required', () => {
+test('password field validation - required', () => {
     const { getByPlaceholderText, getByText } = render(<App />);
     const passwordInput = getByPlaceholderText('비밀번호');
 
