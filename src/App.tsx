@@ -6,7 +6,7 @@ import {
     emailValidation,
     min,
     max,
-    // passwordValidation,
+    passwordValidation,
     required,
     // match,
 } from './utils';
@@ -84,6 +84,20 @@ function App() {
                                 type="text"
                                 placeholder="이메일"
                                 validate={[required, emailValidation]}
+                            />
+                            <TextField
+                                value={values.password}
+                                setValue={(v) => {
+                                    setValues({ ...values, password: v });
+                                }}
+                                error={errors.password}
+                                setError={(err: FieldError) => {
+                                    setErrors({ ...errors, password: err });
+                                }}
+                                name={'password'}
+                                type="password"
+                                placeholder="비밀번호"
+                                validate={[required, passwordValidation]}
                             />
                         </>
                     );
