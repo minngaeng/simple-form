@@ -10,7 +10,6 @@ import {
     required,
     match,
 } from './utils';
-import { FieldError } from './types/index.ts';
 
 function App() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,22 +35,16 @@ function App() {
             <h1>회원가입</h1>
             <p>회원가입을 위해 아래 정보를 입력해주세요.</p>
             <Form id={'join'} onSubmit={handleSubmit} initialData={initialData}>
-                {/* TODO: 2. props를 활용하여 테스트 통과하게 만들기 */}
-                {({ values, errors, setValues, setErrors }) => {
-                    // 과제 step0: props로 setValues, setErrors 함수를 받아오기
+                {({ values, errors, setValues, setFieldError }) => {
                     return (
                         <>
                             <TextField
                                 value={values.id}
-                                // 과제 step1: props로 받아온 setValues 함수 활용
                                 setValue={(v) => {
                                     setValues({ ...values, id: v });
                                 }}
                                 error={errors.id}
-                                // 과제 step2: props로 받아온 setErrors 함수 활용
-                                setError={(err: FieldError) => {
-                                    setErrors({ ...errors, id: err });
-                                }}
+                                setError={setFieldError('id')}
                                 name={'id'}
                                 type="text"
                                 placeholder="아이디"
@@ -63,9 +56,7 @@ function App() {
                                     setValues({ ...values, name: v });
                                 }}
                                 error={errors.name}
-                                setError={(err: FieldError) => {
-                                    setErrors({ ...errors, name: err });
-                                }}
+                                setError={setFieldError('name')}
                                 name={'name'}
                                 type="text"
                                 placeholder="이름"
@@ -77,9 +68,7 @@ function App() {
                                     setValues({ ...values, email: v });
                                 }}
                                 error={errors.email}
-                                setError={(err: FieldError) => {
-                                    setErrors({ ...errors, email: err });
-                                }}
+                                setError={setFieldError('email')}
                                 name={'email'}
                                 type="text"
                                 placeholder="이메일"
@@ -91,9 +80,7 @@ function App() {
                                     setValues({ ...values, password: v });
                                 }}
                                 error={errors.password}
-                                setError={(err: FieldError) => {
-                                    setErrors({ ...errors, password: err });
-                                }}
+                                setError={setFieldError('password')}
                                 name={'password'}
                                 type="password"
                                 placeholder="비밀번호"
@@ -108,12 +95,7 @@ function App() {
                                     });
                                 }}
                                 error={errors['password-confirm']}
-                                setError={(err: FieldError) => {
-                                    setErrors({
-                                        ...errors,
-                                        'password-confirm': err,
-                                    });
-                                }}
+                                setError={setFieldError('password-confirm')}
                                 name={'password-confirm'}
                                 type="password"
                                 placeholder="비밀번호 확인"

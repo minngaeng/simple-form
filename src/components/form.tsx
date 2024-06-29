@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FormError, FormData, FormProps } from '../types';
+import { FormError, FormData, FormProps, FieldError } from '../types';
 
 const getInitialError = (data?: FormData) => {
     const error: FormError = {};
@@ -18,6 +18,10 @@ const Form = ({ children, initialData, ...props }: FormProps) => {
         getInitialError(initialData)
     );
 
+    const setFieldError = (name: string) => (err: FieldError) => {
+        setErrors({ ...errors, [name]: err });
+    };
+
     return (
         <form {...props}>
             {children({
@@ -25,27 +29,8 @@ const Form = ({ children, initialData, ...props }: FormProps) => {
                 errors,
                 setValues,
                 setErrors,
+                setFieldError,
             })}
-            {/* {React.Children.map(
-                props.children,
-                (child: React.ReactElement<FieldProps>) =>
-                    React.cloneElement(child, {
-                        value: values?.[child.props.name],
-                        setValue: (v: string) => {
-                            setValues({
-                                ...values,
-                                [child.props.name]: v,
-                            });
-                        },
-                        error: errors?.[child.props.name],
-                        setError: (v: FieldError) => {
-                            setErrors({
-                                ...errors,
-                                [child.props.name]: v,
-                            });
-                        },
-                    })
-            )} */}
         </form>
     );
 };

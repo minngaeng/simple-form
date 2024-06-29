@@ -24,6 +24,7 @@ export interface FormProps
         errors: FormError;
         setValues: (v: FormData) => void;
         setErrors: (v: FormError) => void;
+        setFieldError: (name: string) => (err: FieldError) => void;
     }) => React.ReactNode;
     initialData: FormData;
 }
