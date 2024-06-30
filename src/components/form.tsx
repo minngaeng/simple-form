@@ -22,6 +22,11 @@ const Form = ({ children, initialData, ...props }: FormProps) => {
         setErrors({ ...errors, [name]: err });
     };
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setValues((prev) => ({ ...prev, [name]: value }));
+    };
+
     return (
         <form {...props}>
             {children({
@@ -30,6 +35,7 @@ const Form = ({ children, initialData, ...props }: FormProps) => {
                 setValues,
                 setErrors,
                 setFieldError,
+                handleChange,
             })}
         </form>
     );

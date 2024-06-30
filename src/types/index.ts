@@ -15,6 +15,7 @@ export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: FieldError;
     setValue?: (v: string) => void;
     setError?: (v: FieldError) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface FormProps
@@ -25,6 +26,7 @@ export interface FormProps
         setValues: (v: FormData) => void;
         setErrors: (v: FormError) => void;
         setFieldError: (name: string) => (err: FieldError) => void;
+        handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     }) => React.ReactNode;
     initialData: FormData;
 }

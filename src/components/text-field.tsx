@@ -9,13 +9,13 @@ const TextField = ({
         success: true,
     },
     value,
-    setValue,
     setError,
+    onChange,
     ...rest
 }: FieldProps) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const v = e.target.value;
-        setValue?.(v);
+        onChange?.(e);
         // TODO: validation
         // 1. validate 함수가 주어진 경우, validate 함수를 실행하여 에러 메시지를 설정합니다.
         // 2. error가 있는 경우 setError 함수를 호출하여 에러 메시지를 설정합니다.

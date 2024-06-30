@@ -35,14 +35,12 @@ function App() {
             <h1>회원가입</h1>
             <p>회원가입을 위해 아래 정보를 입력해주세요.</p>
             <Form id={'join'} onSubmit={handleSubmit} initialData={initialData}>
-                {({ values, errors, setValues, setFieldError }) => {
+                {({ values, errors, setFieldError, handleChange }) => {
                     return (
                         <>
                             <TextField
                                 value={values.id}
-                                setValue={(v) => {
-                                    setValues({ ...values, id: v });
-                                }}
+                                onChange={handleChange}
                                 error={errors.id}
                                 setError={setFieldError('id')}
                                 name={'id'}
@@ -52,9 +50,7 @@ function App() {
                             />
                             <TextField
                                 value={values.name}
-                                setValue={(v) => {
-                                    setValues({ ...values, name: v });
-                                }}
+                                onChange={handleChange}
                                 error={errors.name}
                                 setError={setFieldError('name')}
                                 name={'name'}
@@ -64,9 +60,7 @@ function App() {
                             />
                             <TextField
                                 value={values.email}
-                                setValue={(v) => {
-                                    setValues({ ...values, email: v });
-                                }}
+                                onChange={handleChange}
                                 error={errors.email}
                                 setError={setFieldError('email')}
                                 name={'email'}
@@ -76,9 +70,7 @@ function App() {
                             />
                             <TextField
                                 value={values.password}
-                                setValue={(v) => {
-                                    setValues({ ...values, password: v });
-                                }}
+                                onChange={handleChange}
                                 error={errors.password}
                                 setError={setFieldError('password')}
                                 name={'password'}
@@ -88,12 +80,7 @@ function App() {
                             />
                             <TextField
                                 value={values['password-confirm']}
-                                setValue={(v) => {
-                                    setValues({
-                                        ...values,
-                                        'password-confirm': v,
-                                    });
-                                }}
+                                onChange={handleChange}
                                 error={errors['password-confirm']}
                                 setError={setFieldError('password-confirm')}
                                 name={'password-confirm'}
@@ -104,8 +91,6 @@ function App() {
                         </>
                     );
                 }}
-
-                {/* TODO: create TextField for name, email and password confirm*/}
             </Form>
             <button
                 type={'submit'}
